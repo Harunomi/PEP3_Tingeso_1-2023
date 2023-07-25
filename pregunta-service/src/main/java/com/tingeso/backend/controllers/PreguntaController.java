@@ -23,6 +23,14 @@ public class PreguntaController {
         }
         return ResponseEntity.ok(preguntas);
     }
+    @GetMapping("/prueba/{dificultad}")
+    public ResponseEntity<ArrayList<PreguntaEntity>> prueba(@PathVariable("dificultad") String dificultad){
+        ArrayList<PreguntaEntity> prueba = preguntaService.generarPrueba(dificultad);
+        if (prueba.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(prueba);
+    }
 
     @GetMapping("/listaPreguntas/{dificultad}")
     public ResponseEntity<ArrayList<PreguntaEntity>> listaPreguntasDificultad(@PathVariable("dificultad") String dificultad){
