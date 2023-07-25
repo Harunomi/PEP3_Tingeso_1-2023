@@ -25,5 +25,7 @@ public class PreguntaService {
         preguntaRepository.save(pregunta);
     }
 
-    
+    public void borrarTodo(){
+        preguntaRepository.deleteAll();
+    }
 }

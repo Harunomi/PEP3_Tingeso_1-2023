@@ -1,13 +1,19 @@
 package com.tingeso.backend.repositories;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.tingeso.backend.entities.PreguntaEntity;
 
 @Repository
 public interface PreguntaRepository extends CrudRepository<PreguntaEntity,Long> {
     public ArrayList<PreguntaEntity> findByDificultad(String dificultad);
+
+   // @Query(value = "select * from pregunta as p where p.dificultad = :dificultad", nativeQuery = true)
+    //List<PreguntaEntity> buscarPorDificultad(@Param("dificultad")String rut);
     
 }

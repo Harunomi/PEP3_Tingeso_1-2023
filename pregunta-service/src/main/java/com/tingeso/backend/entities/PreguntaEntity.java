@@ -14,7 +14,7 @@ public class PreguntaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    private String url;
+    private String imagen;
     private String respuesta;
     private String dificultad; // basico, intermedio, avanzado
 }

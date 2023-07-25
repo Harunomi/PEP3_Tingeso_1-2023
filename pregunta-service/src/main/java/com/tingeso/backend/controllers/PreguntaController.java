@@ -4,15 +4,13 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.tingeso.backend.entities.PreguntaEntity;
 import com.tingeso.backend.services.PreguntaService;
 
 @RestController
-@RequestMapping
+@RequestMapping("/pregunta")
 public class PreguntaController {
     @Autowired
     PreguntaService preguntaService;
@@ -24,5 +22,24 @@ public class PreguntaController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(preguntas);
+    }
+
+    @GetMapping("/listaPreguntas/{dificultad}")
+    public ResponseEntity<ArrayList<PreguntaEntity>> listaPreguntasDificultad(@PathVariable("dificultad") String dificultad){
+        ArrayList<PreguntaEntity> preguntas = preguntaService.obtenerPreguntasPorDificultad(dificultad);
+        if (preguntas.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(preguntas);
+    }
+
+    @PostMapping
+    public void crearPregunta(@RequestBody PreguntaEntity pregunta){
+        preguntaService.guardarPregunta(pregunta);
+    }
+
+    @PostMapping("/borrarTodo")
+    public void borrarTodo(){
+        preguntaService.borrarTodo();
     }
 }
