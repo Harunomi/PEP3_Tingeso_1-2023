@@ -1,1 +1,1 @@
-INSERT INTO preguntas(id,imagen,respuesta,dificultad) VALUES(1,"https://imgur.com/a/6UTiKbH","20","basico");
+INSERT INTO preguntas(id,imagen,respuesta,dificultad) VALUES(1,"https://i.imgur.com/OQIUUz8.png","20","basico");

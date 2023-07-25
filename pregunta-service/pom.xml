@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tingeso</groupId>
-	<artifactId>regunta-service</artifactId>
+	<artifactId>pregunta-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pregunta-service</name>
 	<description>Demo project for Spring Boot</description>
