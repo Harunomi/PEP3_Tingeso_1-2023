@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import './Dark.css';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import HomeComponent from './components/HomeComponent';
+import HeaderComponent from './components/HeaderComponent';
+import CrearPreguntaComponent from './components/CrearPreguntaComponent';
+import PruebaComponent from './components/PruebaComponent';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <HeaderComponent/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomeComponent />} />
+          <Route path="/crear-pregunta" element={<CrearPreguntaComponent/>} />
+          <Route path="/prueba/:dificultad" element={<PruebaComponent/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
