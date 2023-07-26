@@ -12,6 +12,7 @@ function PruebaComponent() {
   const [resultados, setResultados] = useState([]);
   const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0); // Estado del tiempo transcurrido en segundos
   const intervalRef = useRef(null); // Referencia al intervalo
+  const [calificacion, setCalificacion] = useState(null); // Estado de la calificación del usuario
 
   useEffect(() => {
     cargarPreguntas();
@@ -28,10 +29,10 @@ function PruebaComponent() {
   }, []);
 
   const cargarPreguntas = () => {
-    PreguntaService.obtenerPreguntasDificultad(dificultad)
+    PreguntaService.obtenerPrueba(dificultad)
       .then((res) => {
         setPreguntas(res.data);
-        setRespuestas(new Array(res.data.length).fill('')); // Inicializamos las respuestas con un arreglo vacío
+        setRespuestas(new Array(res.data.length).fill(''));
       })
       .catch((error) => {
         console.error('Error al cargar las preguntas:', error);
@@ -50,16 +51,22 @@ function PruebaComponent() {
       const respuestaUsuario = respuestas[id].toLowerCase();
       const respuestaCorrecta = pregunta.respuesta.toLowerCase();
       const esCorrecta = respuestaUsuario === respuestaCorrecta;
-
+  
       return {
         pregunta: pregunta,
         respuestaUsuario: respuestaUsuario,
         esCorrecta: esCorrecta,
       };
     });
-
+  
     setResultados(nuevosResultados);
-  };
+  
+    // Calcular la calificación
+    const preguntasCorrectas = nuevosResultados.filter((resultado) => resultado.esCorrecta).length;
+    const preguntasIncorrectas = nuevosResultados.filter((resultado) => !resultado.esCorrecta).length;
+    const calificacion = (preguntasCorrectas * 7 + preguntasIncorrectas) / 4;
+    setCalificacion(calificacion);
+  };  
 
   return (
     <Styles>
@@ -115,7 +122,6 @@ function PruebaComponent() {
                     alt='Respuesta Incorrecta'
                   />
                 )}
-                {/* Mostrar el span 'correct-answer' solo si la respuesta es incorrecta */}
                 {!resultado.esCorrecta && (
                   <span className='correct-answer'>
                     Respuesta Correcta: {resultado.pregunta.respuesta}
@@ -123,6 +129,13 @@ function PruebaComponent() {
                 )}
               </div>
             ))}
+            {calificacion !== null && (
+            <div className='result-item'>
+              <span className='result-text'>
+                Calificación: {calificacion}
+              </span>
+            </div>
+          )}
           </div>
         </div>
       </div>

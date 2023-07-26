@@ -30,7 +30,7 @@ public class PreguntaService {
     public ArrayList<PreguntaEntity> generarPrueba(String dificultad){
         ArrayList<PreguntaEntity> preguntasFiltradas = obtenerPreguntasPorDificultad(dificultad); // obtenemos la pregunta por dificultad
         Collections.shuffle(preguntasFiltradas,new Random()); // randomizamos las preguntas 
-        ArrayList<PreguntaEntity> prueba = (ArrayList<PreguntaEntity>) preguntasFiltradas.subList(0, 4); // seleccionamos las 4 primeras 
+        ArrayList<PreguntaEntity> prueba = new ArrayList<>(preguntasFiltradas.subList(0, 4)) ; // seleccionamos las 4 primeras
         return prueba;
     }
 
